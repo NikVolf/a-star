@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="underscore.js"></script>
+    <script type="text/javascript" src="d3.js"></script>
+    <script type="text/javascript" src="a-star.js"></script>
+
+
+</head>
+<body>
+
+    <svg style="width: 100%; height: 100%">
+    </svg>
+
+    <script type="text/javascript">
+
+        function refresh() {
+            d3.select("svg")
+                    .selectAll("circle")
+                    .data(nodes)
+                    .enter()
+                    .append("circle")
+                    .attr("cx", function(node){ return node.x; })
+                    .attr("cy", function(node){ return node.y; })
+                    .attr("r", 2)
+                    .attr("fill", "black")
+                    .attr("stroke", "black");
+
+            d3.select("svg")
+                    .selectAll("line")
+                    .data(arcs)
+                    .enter()
+                    .append("line")
+                    .attr("x1", function(arc){ return arc.p1.x; })
+                    .attr("y1", function(arc){ return arc.p1.y; })
+                    .attr("x2", function(arc){ return arc.p2.x; })
+                    .attr("y2", function(arc){ return arc.p2.y; })
+                    .attr("cost", function(arc){ return arc.cost; })
+                    .attr("fill", "gray")
+                    .attr("stroke-width", "1")
+                    .attr("stroke", "black");
+
+            d3.select("svg")
+                    .selectAll("rect")
+                    .data(rects)
+                    .enter()
+                    .append("rect")
+                    .attr("x", function(rect){ return rect.x; })
+                    .attr("y", function(rect){ return rect.y; })
+                    .attr("width", function(rect){ return rect.width; })
+                    .attr("height", function(rect){ return rect.height; })
+                    .attr("fill", "gray")
+                    .attr("opacity", "0.1")
+                    .attr("stroke-width", "0.5")
+                    .attr("stroke", "black");
+        }
+
+        graphSearch(start, end);
+
+        refresh();
+
+
+
+    </script>
+</body>
+</html>
